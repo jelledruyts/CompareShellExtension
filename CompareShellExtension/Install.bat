@@ -3,7 +3,7 @@
 REM Check for admin permissions.
 >NUL 2>&1 "%SYSTEMROOT%\system32\cacls.exe" "%SYSTEMROOT%\system32\config\system"
 IF "%ERRORLEVEL%" NEQ "0" (
-    ECHO This script must be run as an administrator.
+	ECHO This script must be run as an administrator.
 	GOTO End
 )
 
@@ -34,7 +34,7 @@ REM Install.
 ECHO Installing...
 TASKKILL /F /IM explorer.exe
 XCOPY /Y /F "%~dp0%DLLNAME%" "%PRODUCTPATH%\"
-XCOPY /Y /F "%0" "%PRODUCTPATH%\"
+XCOPY /Y /F %0 "%PRODUCTPATH%\"
 %REGASM% "%DLLPATH%" /codebase
 explorer.exe
 GOTO End
