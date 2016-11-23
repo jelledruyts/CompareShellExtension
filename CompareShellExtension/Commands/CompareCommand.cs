@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace CompareShellExtension.Commands
 {
@@ -125,8 +126,21 @@ namespace CompareShellExtension.Commands
                     arguments = arguments.Replace("%2", $"\"{item2}\"");
                     arguments = Environment.ExpandEnvironmentVariables(arguments);
                 }
-                Logger.LogInformation($"Running comparison tool with command line: \"{executable}\" {arguments}");
-                Process.Start(executable, arguments);
+                Logger.LogInformation($"Running comparison tool with command line \"{executable}\" {arguments}");
+                try
+                {
+                    using (var process = Process.Start(executable, arguments))
+                    {
+                    }
+                }
+                catch (Exception exc)
+                {
+                    Logger.LogError($"Error running comparison tool with command line \"{executable}\" {arguments}: {exc.ToString()}");
+                    MessageBox.Show($"The comparison tool could not be launched: {exc.Message}. More details can be found in the Application event log." + Environment.NewLine +
+                        "Note that if the configuration is invalid, you can change it via the \"extended\" context menu. " +
+                        "Please access it via Shift + Right-Click on a file or directory in Windows Explorer.",
+                        "Cannot Launch Comparison Tool", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

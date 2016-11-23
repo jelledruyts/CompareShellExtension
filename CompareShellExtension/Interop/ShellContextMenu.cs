@@ -324,7 +324,6 @@ namespace CompareShellExtension.Interop
             if (activeCommand != null)
             {
                 var context = new CommandContext(this.selectedShellItems, this.isExtendedContextMenu);
-                Logger.LogInformation($"Invoking command \"{activeCommand.Command.Name}\" with {context.SelectedShellItems.Count} item(s)");
                 try
                 {
                     activeCommand.Command.Execute(context);
