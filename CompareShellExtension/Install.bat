@@ -44,8 +44,8 @@ REM Uninstall.
 ECHO Uninstalling...
 TASKKILL /F /IM explorer.exe
 %REGASM% "%DLLPATH%" /unregister
-RD /S /Q "%PRODUCTPATH%"
 explorer.exe
+RD /S /Q "%PRODUCTPATH%"
 GOTO End
 
 :End
