@@ -34,6 +34,7 @@ REM Install.
 ECHO Installing...
 TASKKILL /F /IM explorer.exe
 XCOPY /Y /F "%~dp0%DLLNAME%" "%PRODUCTPATH%\"
+XCOPY /Y /F "%0" "%PRODUCTPATH%\"
 %REGASM% "%DLLPATH%" /codebase
 explorer.exe
 GOTO End
