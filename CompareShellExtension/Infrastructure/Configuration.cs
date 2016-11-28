@@ -10,15 +10,11 @@
         public string FileComparisonArguments { get; set; }
         public string DirectoryComparisonExecutable { get; set; }
         public string DirectoryComparisonArguments { get; set; }
+        public bool ShowConfigurationOnlyOnExtendedContextMenu { get; set; }
 
         #endregion
 
         #region Methods
-
-        public bool IsValid()
-        {
-            return IsValidForFileComparison() || IsValidForDirectoryComparison();
-        }
 
         public bool IsValidForFileComparison()
         {

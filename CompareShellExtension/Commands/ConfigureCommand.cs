@@ -11,7 +11,7 @@ namespace CompareShellExtension.Commands
         public CommandState GetState(CommandContext context)
         {
             var configuration = ConfigurationFactory.Current;
-            var isVisible = context.IsExtendedContextMenu || !configuration.IsValid();
+            var isVisible = !configuration.ShowConfigurationOnlyOnExtendedContextMenu || context.IsExtendedContextMenu;
             return new CommandState("Configure comparison tools...", isVisible);
         }
 

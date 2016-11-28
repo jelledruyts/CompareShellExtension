@@ -44,6 +44,12 @@ namespace CompareShellExtension.Infrastructure
                     current.FileComparisonArguments = (string)rootKey.GetValue(nameof(current.FileComparisonArguments));
                     current.DirectoryComparisonExecutable = (string)rootKey.GetValue(nameof(current.DirectoryComparisonExecutable));
                     current.DirectoryComparisonArguments = (string)rootKey.GetValue(nameof(current.DirectoryComparisonArguments));
+                    var showConfigurationOnlyOnExtendedContextMenu = false;
+                    if (!bool.TryParse((string)rootKey.GetValue(nameof(current.ShowConfigurationOnlyOnExtendedContextMenu)), out showConfigurationOnlyOnExtendedContextMenu))
+                    {
+                        showConfigurationOnlyOnExtendedContextMenu = false;
+                    }
+                    current.ShowConfigurationOnlyOnExtendedContextMenu = showConfigurationOnlyOnExtendedContextMenu;
                 }
             }
         }
@@ -63,6 +69,7 @@ namespace CompareShellExtension.Infrastructure
                     rootKey.SetValue(nameof(configuration.FileComparisonArguments), configuration.FileComparisonArguments);
                     rootKey.SetValue(nameof(configuration.DirectoryComparisonExecutable), configuration.DirectoryComparisonExecutable);
                     rootKey.SetValue(nameof(configuration.DirectoryComparisonArguments), configuration.DirectoryComparisonArguments);
+                    rootKey.SetValue(nameof(configuration.ShowConfigurationOnlyOnExtendedContextMenu), configuration.ShowConfigurationOnlyOnExtendedContextMenu.ToString());
                     Logger.LogInformation($"Saved configuration to registry key \"{rootKey.Name}\"");
                 }
             }

@@ -21,6 +21,7 @@ namespace CompareShellExtension.Commands
             this.fileComparisonToolArgumentsTextBox.Text = this.Configuration.FileComparisonArguments;
             this.directoryComparisonToolExecutableTextBox.Text = this.Configuration.DirectoryComparisonExecutable;
             this.directoryComparisonToolArgumentsTextBox.Text = this.Configuration.DirectoryComparisonArguments;
+            this.configurationOnExtendedMenuCheckBox.Checked = this.Configuration.ShowConfigurationOnlyOnExtendedContextMenu;
         }
 
         private void okButton_Click(object sender, System.EventArgs e)
@@ -29,13 +30,7 @@ namespace CompareShellExtension.Commands
             this.Configuration.FileComparisonArguments = this.fileComparisonToolArgumentsTextBox.Text;
             this.Configuration.DirectoryComparisonExecutable = this.directoryComparisonToolExecutableTextBox.Text;
             this.Configuration.DirectoryComparisonArguments = this.directoryComparisonToolArgumentsTextBox.Text;
-
-            if (this.Configuration.IsValid())
-            {
-                MessageBox.Show("From now on, the context menu to access this screen will only be visible on the \"extended\" context menu. " + Environment.NewLine +
-                    "Please access it via Shift + Right-Click on a file or directory in Windows Explorer.",
-                    "Important Note", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            this.Configuration.ShowConfigurationOnlyOnExtendedContextMenu = this.configurationOnExtendedMenuCheckBox.Checked;
 
             this.DialogResult = DialogResult.OK;
             this.Close();
