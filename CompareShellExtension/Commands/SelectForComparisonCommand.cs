@@ -15,19 +15,22 @@ namespace CompareShellExtension.Commands
 
         public void Execute(CommandContext context)
         {
+            var configuration = ConfigurationFactory.LoadConfiguration();
             var selectedFiles = context.GetSelectedFiles();
             if (selectedFiles.Count == 1)
             {
-                ConfigurationFactory.Current.SelectedFile = selectedFiles.Single();
-                Logger.LogInformation($"File selected for comparison: \"{ConfigurationFactory.Current.SelectedFile}\"");
+                configuration.SelectedFile = selectedFiles.Single();
+                ConfigurationFactory.SaveConfiguration(configuration, false);
+                Logger.LogInformation($"File selected for comparison: \"{configuration.SelectedFile}\"");
             }
             else
             {
                 var selectedDirectories = context.GetSelectedDirectories();
-                if(selectedDirectories.Count == 1)
+                if (selectedDirectories.Count == 1)
                 {
-                    ConfigurationFactory.Current.SelectedDirectory = selectedDirectories.Single();
-                    Logger.LogInformation($"Directory selected for comparison: \"{ConfigurationFactory.Current.SelectedDirectory}\"");
+                    configuration.SelectedDirectory = selectedDirectories.Single();
+                    ConfigurationFactory.SaveConfiguration(configuration, false);
+                    Logger.LogInformation($"Directory selected for comparison: \"{configuration.SelectedDirectory}\"");
                 }
             }
         }

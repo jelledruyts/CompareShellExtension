@@ -10,7 +10,7 @@ namespace CompareShellExtension.Commands
 
         public CommandState GetState(CommandContext context)
         {
-            var configuration = ConfigurationFactory.Current;
+            var configuration = ConfigurationFactory.LoadConfiguration();
             var isVisible = !configuration.ShowConfigurationOnlyOnExtendedContextMenu || context.IsExtendedContextMenu;
             return new CommandState("Configure comparison tools...", isVisible);
         }
@@ -18,12 +18,12 @@ namespace CompareShellExtension.Commands
         public void Execute(CommandContext context)
         {
             // Ensure to reload the current configuration from the registry (in case it has been modified manually).
-            ConfigurationFactory.ReloadConfiguration();
-            var editor = new ConfigurationEditor(ConfigurationFactory.Current);
+            var configuration = ConfigurationFactory.LoadConfiguration();
+            var editor = new ConfigurationEditor(configuration);
             var result = editor.ShowDialog();
             if (result == DialogResult.OK)
             {
-                ConfigurationFactory.SaveConfiguration(editor.Configuration);
+                ConfigurationFactory.SaveConfiguration(editor.Configuration, true);
             }
         }
     }

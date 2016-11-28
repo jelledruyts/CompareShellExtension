@@ -14,7 +14,7 @@ namespace CompareShellExtension.Commands
 
         public CommandState GetState(CommandContext context)
         {
-            var configuration = ConfigurationFactory.Current;
+            var configuration = ConfigurationFactory.LoadConfiguration();
             var selectedFiles = context.GetSelectedFiles();
             var selectedDirectories = context.GetSelectedDirectories();
 
@@ -62,7 +62,7 @@ namespace CompareShellExtension.Commands
 
         public void Execute(CommandContext context)
         {
-            var configuration = ConfigurationFactory.Current;
+            var configuration = ConfigurationFactory.LoadConfiguration();
             var selectedFiles = context.GetSelectedFiles();
             var selectedDirectories = context.GetSelectedDirectories();
 

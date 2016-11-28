@@ -11,69 +11,55 @@ namespace CompareShellExtension.Infrastructure
 
         #endregion
 
-        #region Singleton Instance
+        #region Load
 
-        private static Configuration current;
-        public static Configuration Current
+        public static Configuration LoadConfiguration()
         {
-            get
-            {
-                if (current == null)
-                {
-                    ReloadConfiguration();
-                }
-                return current;
-            }
-        }
-
-        #endregion
-
-        #region Reload
-
-        public static void ReloadConfiguration()
-        {
-            if (current == null)
-            {
-                current = new Configuration();
-            }
+            var configuration = new Configuration();
             using (var rootKey = Registry.CurrentUser.OpenSubKey(ConfigurationRootKey))
             {
                 if (rootKey != null)
                 {
-                    current.FileComparisonExecutable = (string)rootKey.GetValue(nameof(current.FileComparisonExecutable));
-                    current.FileComparisonArguments = (string)rootKey.GetValue(nameof(current.FileComparisonArguments));
-                    current.DirectoryComparisonExecutable = (string)rootKey.GetValue(nameof(current.DirectoryComparisonExecutable));
-                    current.DirectoryComparisonArguments = (string)rootKey.GetValue(nameof(current.DirectoryComparisonArguments));
+                    configuration.SelectedFile = (string)rootKey.GetValue(nameof(configuration.SelectedFile));
+                    configuration.SelectedDirectory = (string)rootKey.GetValue(nameof(configuration.SelectedDirectory));
+                    configuration.FileComparisonExecutable = (string)rootKey.GetValue(nameof(configuration.FileComparisonExecutable));
+                    configuration.FileComparisonArguments = (string)rootKey.GetValue(nameof(configuration.FileComparisonArguments));
+                    configuration.DirectoryComparisonExecutable = (string)rootKey.GetValue(nameof(configuration.DirectoryComparisonExecutable));
+                    configuration.DirectoryComparisonArguments = (string)rootKey.GetValue(nameof(configuration.DirectoryComparisonArguments));
                     var showConfigurationOnlyOnExtendedContextMenu = false;
-                    if (!bool.TryParse((string)rootKey.GetValue(nameof(current.ShowConfigurationOnlyOnExtendedContextMenu)), out showConfigurationOnlyOnExtendedContextMenu))
+                    if (!bool.TryParse((string)rootKey.GetValue(nameof(configuration.ShowConfigurationOnlyOnExtendedContextMenu)), out showConfigurationOnlyOnExtendedContextMenu))
                     {
                         showConfigurationOnlyOnExtendedContextMenu = false;
                     }
-                    current.ShowConfigurationOnlyOnExtendedContextMenu = showConfigurationOnlyOnExtendedContextMenu;
+                    configuration.ShowConfigurationOnlyOnExtendedContextMenu = showConfigurationOnlyOnExtendedContextMenu;
                 }
             }
+            return configuration;
         }
 
         #endregion
 
         #region Save
 
-        public static void SaveConfiguration(Configuration configuration)
+        public static void SaveConfiguration(Configuration configuration, bool log)
         {
             if (configuration != null)
             {
                 using (var rootKey = Registry.CurrentUser.CreateSubKey(ConfigurationRootKey))
                 {
-                    // Note: the selected file and directory are not currently persisted.
-                    rootKey.SetValue(nameof(configuration.FileComparisonExecutable), configuration.FileComparisonExecutable);
-                    rootKey.SetValue(nameof(configuration.FileComparisonArguments), configuration.FileComparisonArguments);
-                    rootKey.SetValue(nameof(configuration.DirectoryComparisonExecutable), configuration.DirectoryComparisonExecutable);
-                    rootKey.SetValue(nameof(configuration.DirectoryComparisonArguments), configuration.DirectoryComparisonArguments);
+                    rootKey.SetValue(nameof(configuration.SelectedFile), configuration.SelectedFile ?? string.Empty);
+                    rootKey.SetValue(nameof(configuration.SelectedDirectory), configuration.SelectedDirectory ?? string.Empty);
+                    rootKey.SetValue(nameof(configuration.FileComparisonExecutable), configuration.FileComparisonExecutable ?? string.Empty);
+                    rootKey.SetValue(nameof(configuration.FileComparisonArguments), configuration.FileComparisonArguments ?? string.Empty);
+                    rootKey.SetValue(nameof(configuration.DirectoryComparisonExecutable), configuration.DirectoryComparisonExecutable ?? string.Empty);
+                    rootKey.SetValue(nameof(configuration.DirectoryComparisonArguments), configuration.DirectoryComparisonArguments ?? string.Empty);
                     rootKey.SetValue(nameof(configuration.ShowConfigurationOnlyOnExtendedContextMenu), configuration.ShowConfigurationOnlyOnExtendedContextMenu.ToString());
-                    Logger.LogInformation($"Saved configuration to registry key \"{rootKey.Name}\"");
+                    if (log)
+                    {
+                        Logger.LogInformation($"Saved configuration to registry key \"{rootKey.Name}\"");
+                    }
                 }
             }
-            current = configuration;
         }
 
         #endregion
