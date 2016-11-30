@@ -5,6 +5,22 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompareShellExtension", "CompareShellExtension\CompareShellExtension.csproj", "{2CEE5AB2-707B-483B-A1F8-8ADF17D7E1A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{138EA1F7-C3B2-48A7-A9F6-A65B0BC92DD4}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{FE729E3B-5488-4DB0-A005-F44724DB5BF7}"
+	ProjectSection(SolutionItems) = preProject
+		Documentation\Configuration.png = Documentation\Configuration.png
+		Documentation\ContextMenu-CompareDirectories.png = Documentation\ContextMenu-CompareDirectories.png
+		Documentation\ContextMenu-CompareDirectory.png = Documentation\ContextMenu-CompareDirectory.png
+		Documentation\ContextMenu-CompareFile.png = Documentation\ContextMenu-CompareFile.png
+		Documentation\ContextMenu-Configure.png = Documentation\ContextMenu-Configure.png
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
