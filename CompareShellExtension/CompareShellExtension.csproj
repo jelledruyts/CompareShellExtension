@@ -53,6 +53,7 @@
     <Compile Include="CommandContext.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="CommandState.cs" />
+    <Compile Include="Commands\ClearSelectionCommand.cs" />
     <Compile Include="Commands\CompareCommand.cs" />
     <Compile Include="Commands\ConfigurationEditor.cs">
       <SubType>Form</SubType>

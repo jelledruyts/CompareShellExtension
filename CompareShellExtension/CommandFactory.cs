@@ -12,6 +12,7 @@ namespace CompareShellExtension
             availableCommands = new List<ICommand>();
             availableCommands.Add(new SelectForComparisonCommand());
             availableCommands.Add(new CompareCommand());
+            availableCommands.Add(new ClearSelectionCommand());
             availableCommands.Add(new ConfigureCommand());
         }
 

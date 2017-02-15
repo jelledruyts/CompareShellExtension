@@ -30,13 +30,13 @@ namespace CompareShellExtension.Commands
                 if (selectedFiles.Count == 2)
                 {
                     // Two files are selected in the shell, compare them.
-                    return new CommandState("Compare files...", configuration.IsValidForFileComparison());
+                    return new CommandState("Compare files", configuration.IsValidForFileComparison());
                 }
                 if (selectedFiles.Count == 1 && !string.IsNullOrWhiteSpace(configuration.SelectedFile))
                 {
                     // A file was selected before and another file is now selected in the shell, compare them.
                     var shortFileName = Path.GetFileName(configuration.SelectedFile);
-                    return new CommandState($"Compare to \"{shortFileName}\"...", configuration.IsValidForFileComparison());
+                    return new CommandState($"Compare to \"{shortFileName}\"", configuration.IsValidForFileComparison());
                 }
             }
 
@@ -46,13 +46,13 @@ namespace CompareShellExtension.Commands
                 if (selectedDirectories.Count == 2)
                 {
                     // Two directories are selected in the shell, compare them.
-                    return new CommandState("Compare directories...", configuration.IsValidForDirectoryComparison());
+                    return new CommandState("Compare directories", configuration.IsValidForDirectoryComparison());
                 }
                 if (selectedDirectories.Count == 1 && !string.IsNullOrWhiteSpace(configuration.SelectedDirectory))
                 {
                     // A directory was selected before and another directory is now selected in the shell, compare them.
                     var shortDirectoryName = Path.GetFileName(configuration.SelectedDirectory.TrimEnd(Path.DirectorySeparatorChar));
-                    return new CommandState($"Compare to \"{shortDirectoryName}\"...", configuration.IsValidForDirectoryComparison());
+                    return new CommandState($"Compare to \"{shortDirectoryName}\"", configuration.IsValidForDirectoryComparison());
                 }
             }
 

@@ -33,3 +33,5 @@ You can either simply select two directories, right-click and select `Compare di
 Or you can start by right-clicking the first directory to compare and selecting `Select for comparison`. Then right-click the second directory and select `Compare to (first)` to start the comparison.
 
 ![Compare Directories In Two Steps](Documentation/ContextMenu-CompareDirectory.png "Compare Directories In Two Steps")
+
+To clear the file and directory that was previously selected for comparison, open the "extended" context menu (shift + right-click) and select `Clear selection for comparison`.
