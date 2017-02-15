@@ -10,7 +10,19 @@ namespace CompareShellExtension.Commands
 
         public CommandState GetState(CommandContext context)
         {
-            return new CommandState("Select for comparison", context.SelectedShellItems.Count == 1);
+            var isVisible = false;
+
+            // Only show if there is a single selected item.
+            if (context.SelectedShellItems.Count == 1)
+            {
+                // Only show if comparison would actually be possible.
+                var configuration = ConfigurationFactory.LoadConfiguration();
+                if ((context.GetSelectedFiles().Any() && configuration.IsValidForFileComparison()) || (context.GetSelectedDirectories().Any() && configuration.IsValidForDirectoryComparison()))
+                {
+                    isVisible = true;
+                }
+            }
+            return new CommandState("Select for comparison", isVisible);
         }
 
         public void Execute(CommandContext context)

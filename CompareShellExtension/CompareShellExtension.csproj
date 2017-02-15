@@ -61,7 +61,6 @@
       <DependentUpon>ConfigurationEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Commands\ConfigureCommand.cs" />
-    <Compile Include="Commands\DummyCommand.cs" />
     <Compile Include="AppConstants.cs" />
     <Compile Include="Commands\SelectForComparisonCommand.cs" />
     <Compile Include="ICommand.cs" />
